@@ -1,30 +1,49 @@
 <template>
-  <el-table :data="tableData" border style="width: 100%">
-    <el-table-column prop="song" label="歌名" width="300">
-    </el-table-column>
-    <el-table-column prop="singer" label="歌手" width="200">
-    </el-table-column>
-    <el-table-column prop="album" label="专辑" width="300">
-    </el-table-column>
-    <el-table-column prop="time" label="时间" width="100">
-    </el-table-column>
-    <el-table-column  label="操作" >
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">跳转</el-button>
-        <el-button type="text" size="small">下载</el-button>
-      </template>
-    </el-table-column>
-  </el-table>  
+  <div>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column prop="song" label="歌名" width="300">
+      </el-table-column>
+      <el-table-column prop="singer" label="歌手" width="200">
+      </el-table-column>
+      <el-table-column prop="album" label="专辑" width="300">
+      </el-table-column>
+      <el-table-column prop="time" label="时间" width="100">
+      </el-table-column>
+      <el-table-column  label="操作" >
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">跳转</el-button>
+          <el-button type="text" size="small">下载</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="pagination">
+      <el-pagination background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage3"
+        :page-size="100"
+        layout="prev, pager, next, jumper"
+        :total="1000">
+      </el-pagination>
+    </div>
+  </div>
 </template>
 <script>
 export default {
   methods: {
     handleClick (row) {
       console.log(row)
+    },
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`)
     }
   },
   data () {
     return {
+      currentPage3: 5,
       tableData: [{
         song: '告白气球',
         singer: '周杰伦',
@@ -55,3 +74,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .pagination{
+    text-align: center;
+    margin-top: 15px;
+  }
+</style>
+
