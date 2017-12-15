@@ -16,8 +16,8 @@
     <div class="result">
       <el-tabs v-model="activeName" @tab-click="tabClick">
         <el-tab-pane label="网易云音乐" name="wangyi">
-          <search-table>
-          </search-table>
+          <wangyi-table ref="wangyi">
+          </wangyi-table>
         </el-tab-pane>
         <el-tab-pane label="QQ音乐" name="qq">QQ音乐</el-tab-pane>
         <el-tab-pane label="百度音乐" name="baidu">百度音乐</el-tab-pane>
@@ -29,7 +29,7 @@
 </template>
 <script>
 import headTop from '@/components/header/head.vue'
-import searchTable from '@/components/table/table.vue'
+import wangyiTable from '@/components/searchTable/wangyi/wangyi.vue'
 
 export default {
   data () {
@@ -40,11 +40,11 @@ export default {
   },
   components: {
     headTop,
-    searchTable
+    wangyiTable
   },
   methods: {
     onSubmit () {
-      console.log(this.keyword)
+      this.$refs.wangyi.search(this.keyword)
     },
     tabClick (tab, event) {
       console.log(tab, event)
@@ -65,9 +65,6 @@ export default {
     margin: 10px -14px;
   }
 
-  .search {
-
-  }
 </style>
 
 

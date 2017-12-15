@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="tableData" border style="width: 100%">
+    <el-table :data="rows" border style="width: 100%" size="small">
       <el-table-column prop="song" label="歌名" width="300">
       </el-table-column>
       <el-table-column prop="singer" label="歌手" width="200">
@@ -20,10 +20,10 @@
       <el-pagination background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="currentPage3"
-        :page-size="100"
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
         layout="prev, pager, next, jumper"
-        :total="1000">
+        :total="total">
       </el-pagination>
     </div>
   </div>
@@ -38,38 +38,27 @@ export default {
       console.log(`每页 ${val} 条`)
     },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
+      // console.log(`当前页: ${val}`)
+      this.$emit('currentChange', val)
+    }
+  },
+  props: {
+    rows: {
+      type: Array,
+      default: []
+    },
+    total: {
+      type: Number,
+      default: 0
+    },
+    pageSize: {
+      type: Number,
+      default: 0
     }
   },
   data () {
     return {
-      currentPage3: 5,
-      tableData: [{
-        song: '告白气球',
-        singer: '周杰伦',
-        album: '周杰伦的床边故事',
-        time: '03:35'
-      }, {
-        song: '开不了口',
-        singer: '周杰伦',
-        album: '范特西',
-        time: '04:44'
-      }, {
-        song: '晴天',
-        singer: '周杰伦',
-        album: '叶惠美',
-        time: '04:29'
-      }, {
-        song: '算什么男人',
-        singer: '周杰伦',
-        album: '哎呦，不错哦',
-        time: '04:49'
-      }, {
-        song: '稻香',
-        singer: '周杰伦',
-        album: '摩羯座',
-        time: '03:43'
-      }]
+      currentPage: 1
     }
   }
 }
