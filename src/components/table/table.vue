@@ -12,7 +12,7 @@
       <el-table-column  label="操作" >
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">跳转</el-button>
-          <el-button type="text" size="small">下载</el-button>
+          <el-button @click="downClick(scope.row)" type="text" size="small">下载</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -32,7 +32,7 @@
 export default {
   methods: {
     handleClick (row) {
-      console.log(row)
+      window.open(row.source_url)
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
@@ -40,6 +40,9 @@ export default {
     handleCurrentChange (val) {
       // console.log(`当前页: ${val}`)
       this.$emit('currentChange', val)
+    },
+    downClick (row) {
+      this.$emit('downClick', row)
     }
   },
   props: {
