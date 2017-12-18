@@ -1,3 +1,4 @@
+
 const songTimeConver = (time) => {
   let t = (time - time % 1000) / 1000
   let s = t % 60
@@ -32,7 +33,31 @@ const randomUserAgent = () => {
   return userAgentList[num]
 }
 
+const downloadFile = (fileName, content) => {
+  console.log(fileName)
+  console.log(content)
+  var aLink = document.createElement('a')
+  var blob = new Blob([content])
+  var evt = document.createEvent('HTMLEvents')
+  evt.initEvent('click', false, false) // initEvent 不加后两个参数在FF下会报错, 感谢 Barret Lee 的反馈
+  aLink.download = fileName
+  aLink.href = URL.createObjectURL(blob)
+  aLink.dispatchEvent(evt)
+  aLink.click()
+}
+
+// const downloadFile = (filename, url) => {
+//   axios.get(url)
+//   .then((response) => {
+//     console.log(response)
+//   })
+//   .catch((error) => {
+//     console.log(error)
+//   })
+// }
+
 export default {
   songTimeConver,
-  randomUserAgent
+  randomUserAgent,
+  downloadFile
 }

@@ -78,14 +78,33 @@ export default {
       })
     },
     downClick (row) {
-      console.log(Encrypt)
+      let self = this
+      const br = 999000
       const data = {
-        ids: [row.id],
-        br: 999000,
+        ids: [row.id.toString()],
+        br: br,
         csrf_token: ''
       }
       const cryptoreq = Encrypt(data)
-      console.log(cryptoreq)
+      this.axios({
+        method: 'post',
+        url: 'weapi/song/enhance/player/url?csrf_token=',
+        params: cryptoreq,
+        baseURL: process.env.WANGYYI_API,
+        headers: this.getHeaders()
+      })
+      .then(function (response) {
+        if (response.data.code === 200) {
+          if (response.data.data.length > 0) {
+            console.log(response.data.data[0].url)
+            // window.open(response.data.data[0].url)
+            self.$util.downloadFile(row.song + '.' + response.data.data[0].type, response.data.data[0].url)
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
     }
   }
 }
