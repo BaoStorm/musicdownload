@@ -19,7 +19,10 @@
           <wangyi-table ref="wangyi">
           </wangyi-table>
         </el-tab-pane>
-        <el-tab-pane label="QQ音乐" name="qq">QQ音乐</el-tab-pane>
+        <el-tab-pane label="QQ音乐" name="qq">
+          <qq-table ref="qq">
+          </qq-table>
+        </el-tab-pane>
         <el-tab-pane label="百度音乐" name="baidu">百度音乐</el-tab-pane>
         <el-tab-pane label="酷我音乐" name="kuwo">酷我音乐</el-tab-pane>
         <el-tab-pane label="虾米音乐" name="xiami">虾米音乐</el-tab-pane>
@@ -30,21 +33,24 @@
 <script>
 import headTop from '@/components/header/head.vue'
 import wangyiTable from '@/components/searchTable/wangyi/wangyi.vue'
+import qqTable from '@/components/searchTable/qq/qq.vue'
 
 export default {
   data () {
     return {
       keyword: '',
-      activeName: 'wangyi'
+      activeName: 'qq'
     }
   },
   components: {
     headTop,
-    wangyiTable
+    wangyiTable,
+    qqTable
   },
   methods: {
     onSubmit () {
       this.$refs.wangyi.search(this.keyword)
+      this.$refs.qq.search(this.keyword)
     },
     tabClick (tab, event) {
       console.log(tab, event)

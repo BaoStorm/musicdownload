@@ -78,7 +78,7 @@ export default {
       })
     },
     downClick (row) {
-      let self = this
+      // let self = this
       const br = 999000
       const data = {
         ids: [row.id.toString()],
@@ -96,9 +96,10 @@ export default {
       .then(function (response) {
         if (response.data.code === 200) {
           if (response.data.data.length > 0) {
+            console.log(row.song + '.' + response.data.data[0].type)
             console.log(response.data.data[0].url)
             // window.open(response.data.data[0].url)
-            self.$util.downloadFile(row.song + '.' + response.data.data[0].type, response.data.data[0].url)
+            // self.$util.downloadFile(row.song + '.' + response.data.data[0].type, response.data.data[0].url)
           }
         }
       })
