@@ -47,7 +47,7 @@ export default {
             album: song.ALBUM,
             singer: song.ARTIST,
             time: '',
-            source_url: ''
+            source_url: `http://www.kuwo.cn/yinyue/${song.MUSICRID.replace('MUSIC_', '')}`
           }
           rows.push(row)
         })

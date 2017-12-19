@@ -47,7 +47,7 @@ export default {
             album: spilts[5],
             singer: song.fsinger,
             time: self.$util.songTimeConver(spilts[7] * 1000),
-            source_url: ''
+            source_url: `https://y.qq.com/n/yqq/song/${spilts[spilts.length - 5]}.html`
           }
           rows.push(row)
         })

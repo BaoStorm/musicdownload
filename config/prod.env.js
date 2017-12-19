@@ -7,5 +7,6 @@ module.exports = {
   BAIDU_SEARCH: '"http://musicmini.baidu.com/"',
   BAIDU_SONG: '"http://music.baidu.com/"',
   KUWO_SEARCH:'"http://search.kuwo.cn/"',
-  KUWO_SONG:'"http://antiserver.kuwo.cn/"'
+  KUWO_SONG:'"http://antiserver.kuwo.cn/"',
+  XIAMI_SEARCH: '"http://api.xiami.com/"'
 }

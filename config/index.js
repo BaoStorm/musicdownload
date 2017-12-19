@@ -60,6 +60,13 @@ module.exports = {
         pathRewrite:{
           '^/kuwosong':''
         }
+      },
+      '/xiamisearch':{
+        target:"http://www.xiami.com/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/xiamisearch':''
+        }
       }
     },
 

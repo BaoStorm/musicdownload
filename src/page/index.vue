@@ -5,7 +5,7 @@
     <div class="search">
       <el-row :gutter="24">
         <el-col :span="20">
-          <el-input type="text" v-model="keyword" auto-complete="off"></el-input>
+          <el-input type="text" v-model="keyword" auto-complete="off" @keyup.enter.native="onSubmit"></el-input>
         </el-col>
         <el-col :span="4">
           <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       keyword: '',
-      activeName: 'kuwo'
+      activeName: 'wangyi'
     }
   },
   components: {
@@ -64,14 +64,26 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$refs.wangyi.search(this.keyword)
-      this.$refs.qq.search(this.keyword)
-      this.$refs.baidu.search(this.keyword)
-      this.$refs.kuwo.search(this.keyword)
-      this.$refs.xiami.search(this.keyword)
+      switch (this.activeName) {
+        case 'wangyi':
+          this.$refs.wangyi.search(this.keyword)
+          break
+        case 'qq':
+          this.$refs.qq.search(this.keyword)
+          break
+        case 'baidu':
+          this.$refs.baidu.search(this.keyword)
+          break
+        case 'kuwo':
+          this.$refs.kuwo.search(this.keyword)
+          break
+        case 'xiami':
+          this.$refs.xiami.search(this.keyword)
+          break
+      }
     },
-    tabClick (tab, event) {
-      console.log(tab, event)
+    tabClick () {
+      this.onSubmit()
     }
   }
 }

@@ -53,7 +53,7 @@ export default {
             album: $($(html).find('td[class="aName"]')[i + 1]).text(),
             singer: spilts[1],
             time: '',
-            source_url: ''
+            source_url: `http://music.baidu.com/song/${spilts[0]}`
           }
           rows.push(row)
         })

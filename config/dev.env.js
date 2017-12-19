@@ -10,5 +10,6 @@ module.exports = merge(prodEnv, {
   BAIDU_SEARCH: '"baidusearch/"',
   BAIDU_SONG: '"baidusong/"',
   KUWO_SEARCH:'"kuwosearch/"',
-  KUWO_SONG:'"kuwosong/"'
+  KUWO_SONG:'"kuwosong/"',
+  XIAMI_SEARCH: '"xiamisearch/"'
 })
