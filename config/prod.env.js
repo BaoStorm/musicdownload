@@ -1,5 +1,9 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  WANGYYI_API: '"http://music.163.com/api/"'
+  WANGYYI_API: '"http://music.163.com/api/"',
+  QQ_SEARCH: '"http://s.music.qq.com/"',
+  QQ_BASE: '"http://base.music.qq.com/"',
+  BAIDU_SEARCH: '"http://musicmini.baidu.com/"',
+  BAIDU_SONG: '"http://music.baidu.com/"'
 }

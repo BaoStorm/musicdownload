@@ -32,6 +32,20 @@ module.exports = {
         pathRewrite:{
           '^/qqbase':''
         }
+      },
+      '/baidusearch':{
+        target:"http://musicmini.baidu.com/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/baidusearch':''
+        }
+      },
+      '/baidusong':{
+        target:"http://music.baidu.com/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/baidusong':''
+        }
       }   
     },
 

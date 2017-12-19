@@ -34,7 +34,7 @@ export default {
     },
     getSonglist () {
       let self = this
-      const url = `qqsearch/fcgi-bin/music_search_new_platform?aggr=1&cr=1&loginUin=0&format=json&outCharset=utf-8&w=${this.keyword}&p=${this.result.pageIndex}&n=${this.result.pageSize}`
+      const url = `${process.env.QQ_SEARCH}fcgi-bin/music_search_new_platform?aggr=1&cr=1&loginUin=0&format=json&outCharset=utf-8&w=${this.keyword}&p=${this.result.pageIndex}&n=${this.result.pageSize}`
       this.axios.get(url)
       .then((response) => {
         self.result.total = response.data.data.song.totalnum
@@ -59,7 +59,7 @@ export default {
     },
     downClick (row) {
       let self = this
-      const url = 'qqbase/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=0&format=jsonp&inCharset=GB2312&outCharset=GB2312&notice=0&platform=yqq&needNewCode=0'
+      const url = `${process.env.QQ_BASE}fcgi-bin/fcg_musicexpress.fcg?json=3&guid=0&format=jsonp&inCharset=GB2312&outCharset=GB2312&notice=0&platform=yqq&needNewCode=0`
       this.axios.get(url)
       .then((response) => {
         let data = response.data.slice('jsonCallback('.length, -');'.length)

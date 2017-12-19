@@ -35,6 +35,7 @@ const randomUserAgent = () => {
 
 const downloadFile = (fileName, href) => {
   const a = document.createElement('a')
+  // a.setAttribute('target', '_blank')
   a.setAttribute('href', href)
   a.setAttribute('download', fileName)
   a.click()
