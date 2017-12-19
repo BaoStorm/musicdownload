@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       keyword: '',
-      activeName: 'qq'
+      activeName: 'kuwo'
     }
   },
   components: {

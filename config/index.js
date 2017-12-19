@@ -46,7 +46,21 @@ module.exports = {
         pathRewrite:{
           '^/baidusong':''
         }
-      }   
+      },
+      '/kuwosearch':{
+        target:"http://search.kuwo.cn/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/kuwosearch':''
+        }
+      },
+      '/kuwosong':{
+        target:"http://antiserver.kuwo.cn/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/kuwosong':''
+        }
+      }
     },
 
     // Various Dev Server settings

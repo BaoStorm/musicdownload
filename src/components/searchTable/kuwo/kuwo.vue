@@ -33,9 +33,40 @@ export default {
       this.getSonglist()
     },
     getSonglist () {
+      let self = this
+      const url = `${process.env.KUWO_SEARCH}r.s?all=${this.keyword}&ft=music&itemset=web_2013&client=kt&pn=${this.result.pageIndex - 1}&rn=${this.result.pageSize}&rformat=json&encoding=utf8`
+      this.axios.get(url)
+      .then((response) => {
+        var data = JSON.parse(response.data.replace(/'/g, `"`).replace(/&nbsp;/g, ' '))
+        self.result.total = data.total
+        let rows = []
+        data.abslist.forEach((song) => {
+          let row = {
+            id: song.MUSICRID,
+            song: song.SONGNAME,
+            album: song.ALBUM,
+            singer: song.ARTIST,
+            time: '',
+            source_url: ''
+          }
+          rows.push(row)
+        })
+        self.result.rows = rows
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     downClick (row) {
-      console.log(row)
+      let self = this
+      const url = `${process.env.KUWO_SONG}anti.s?type=convert_url&rid=${row.id}&format=aac|mp3&response=url`
+      this.axios.get(url)
+      .then((response) => {
+        self.$util.downloadFile('', response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }

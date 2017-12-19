@@ -12,7 +12,7 @@ export default {
       result: {
         rows: [],
         total: 0,
-        pageSize: 20,
+        pageSize: 30,
         pageIndex: 1
       },
       keyword: ''
@@ -66,11 +66,10 @@ export default {
     downClick (row) {
       let self = this
       const url = `${process.env.BAIDU_SONG}data/music/links?songIds=${row.id}`
-      console.log(url)
       this.axios.get(url)
       .then((response) => {
         if (response.data.data.songList.length > 0) {
-          console.log(response.data.data.songList[0].songLink)
+          // console.log(response.data.data.songList[0].songLink)
           self.$util.downloadFile('', response.data.data.songList[0].songLink)
         }
       })

@@ -5,5 +5,7 @@ module.exports = {
   QQ_SEARCH: '"http://s.music.qq.com/"',
   QQ_BASE: '"http://base.music.qq.com/"',
   BAIDU_SEARCH: '"http://musicmini.baidu.com/"',
-  BAIDU_SONG: '"http://music.baidu.com/"'
+  BAIDU_SONG: '"http://music.baidu.com/"',
+  KUWO_SEARCH:'"http://search.kuwo.cn/"',
+  KUWO_SONG:'"http://antiserver.kuwo.cn/"'
 }

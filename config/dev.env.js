@@ -8,5 +8,7 @@ module.exports = merge(prodEnv, {
   QQ_SEARCH: '"qqsearch/"',
   QQ_BASE: '"qqbase/"',
   BAIDU_SEARCH: '"baidusearch/"',
-  BAIDU_SONG: '"baidusong/"'
+  BAIDU_SONG: '"baidusong/"',
+  KUWO_SEARCH:'"kuwosearch/"',
+  KUWO_SONG:'"kuwosong/"'
 })
