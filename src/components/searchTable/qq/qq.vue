@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -27,6 +27,8 @@ export default {
     },
     search (keyword) {
       // 搜索
+      this.result.pageIndex = 1
+      this.$refs.pt.setCurrentPage(1)
       this.keyword = keyword
       this.getSonglist()
     },
@@ -37,12 +39,10 @@ export default {
       .then((response) => {
         self.result.total = response.data.data.song.totalnum
         let rows = []
-        console.log(response.data.data.song)
         response.data.data.song.list.forEach((song) => {
           var spilts = song.f.split('|')
-          console.log(spilts.length)
           let row = {
-            id: spilts[0],
+            id: spilts[spilts.length - 5],
             song: song.fsong,
             album: spilts[5],
             singer: song.fsinger,
@@ -58,7 +58,20 @@ export default {
       })
     },
     downClick (row) {
-
+      let self = this
+      const url = 'qqbase/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=0&format=jsonp&inCharset=GB2312&outCharset=GB2312&notice=0&platform=yqq&needNewCode=0'
+      this.axios.get(url)
+      .then((response) => {
+        let data = response.data.slice('jsonCallback('.length, -');'.length)
+        data = JSON.parse(data)
+        let musicUrl = `http://dl.stream.qqmusic.qq.com/C200${row.id}.m4a?vkey=${data.key}&fromtag=0&guid=0`
+        // console.log(row.song + '.m4a')
+        // console.log(musicUrl)
+        self.$util.downloadFile(row.song + '.m4a', musicUrl)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }

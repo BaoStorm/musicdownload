@@ -25,6 +25,13 @@ module.exports = {
         pathRewrite:{
           '^/qqsearch':''
         }
+      },
+      '/qqbase':{
+        target:"http://base.music.qq.com/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/qqbase':''
+        }
       }   
     },
 

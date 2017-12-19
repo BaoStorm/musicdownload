@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -29,6 +29,8 @@ export default {
     },
     search (keyword) {
       // 搜索
+      this.result.pageIndex = 1
+      this.$refs.pt.setCurrentPage(1)
       this.keyword = keyword
       this.getSonglist()
     },
@@ -58,19 +60,21 @@ export default {
         headers: this.getHeaders()
       })
       .then(function (response) {
-        self.result.total = response.data.result.songCount
         let rows = []
-        response.data.result.songs.forEach((song) => {
-          let row = {
-            id: song.id,
-            song: song.name,
-            album: song.album.name,
-            singer: song.artists[0].name,
-            time: self.$util.songTimeConver(song.duration),
-            source_url: 'http://music.163.com/#/song?id=' + song.id
-          }
-          rows.push(row)
-        })
+        if (response.data.code === 200) {
+          self.result.total = response.data.result.songCount
+          response.data.result.songs.forEach((song) => {
+            let row = {
+              id: song.id,
+              song: song.name,
+              album: song.album.name,
+              singer: song.artists[0].name,
+              time: self.$util.songTimeConver(song.duration),
+              source_url: 'http://music.163.com/#/song?id=' + song.id
+            }
+            rows.push(row)
+          })
+        }
         self.result.rows = rows
       })
       .catch(function (error) {
@@ -78,7 +82,7 @@ export default {
       })
     },
     downClick (row) {
-      // let self = this
+      let self = this
       const br = 999000
       const data = {
         ids: [row.id.toString()],
@@ -96,10 +100,9 @@ export default {
       .then(function (response) {
         if (response.data.code === 200) {
           if (response.data.data.length > 0) {
-            console.log(row.song + '.' + response.data.data[0].type)
-            console.log(response.data.data[0].url)
-            // window.open(response.data.data[0].url)
-            // self.$util.downloadFile(row.song + '.' + response.data.data[0].type, response.data.data[0].url)
+            // console.log(row.song + '.' + response.data.data[0].type)
+            // console.log(response.data.data[0].url)
+            self.$util.downloadFile(row.song + '.' + response.data.data[0].type, response.data.data[0].url)
           }
         }
       })

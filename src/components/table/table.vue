@@ -23,7 +23,8 @@
         :current-page.sync="currentPage"
         :page-size="pageSize"
         layout="prev, pager, next, jumper"
-        :total="total">
+        :total="total"
+        v-show="rows.length>0">
       </el-pagination>
     </div>
   </div>
@@ -43,6 +44,9 @@ export default {
     },
     downClick (row) {
       this.$emit('downClick', row)
+    },
+    setCurrentPage (val) {
+      this.currentPage = val
     }
   },
   props: {

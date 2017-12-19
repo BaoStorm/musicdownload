@@ -23,9 +23,18 @@
           <qq-table ref="qq">
           </qq-table>
         </el-tab-pane>
-        <el-tab-pane label="百度音乐" name="baidu">百度音乐</el-tab-pane>
-        <el-tab-pane label="酷我音乐" name="kuwo">酷我音乐</el-tab-pane>
-        <el-tab-pane label="虾米音乐" name="xiami">虾米音乐</el-tab-pane>
+        <el-tab-pane label="百度音乐" name="baidu">
+          <baidu-table ref="baidu">
+          </baidu-table>
+        </el-tab-pane>
+        <el-tab-pane label="酷我音乐" name="kuwo">
+          <kuwo-table ref="kuwo">
+          </kuwo-table>
+        </el-tab-pane>
+        <el-tab-pane label="虾米音乐" name="xiami">
+          <xiami-table ref="xiami">
+          </xiami-table>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -34,6 +43,9 @@
 import headTop from '@/components/header/head.vue'
 import wangyiTable from '@/components/searchTable/wangyi/wangyi.vue'
 import qqTable from '@/components/searchTable/qq/qq.vue'
+import baiduTable from '@/components/searchTable/baidu/baidu.vue'
+import kuwoTable from '@/components/searchTable/kuwo/kuwo.vue'
+import xiamiTable from '@/components/searchTable/xiami/xiami.vue'
 
 export default {
   data () {
@@ -45,12 +57,18 @@ export default {
   components: {
     headTop,
     wangyiTable,
-    qqTable
+    qqTable,
+    baiduTable,
+    kuwoTable,
+    xiamiTable
   },
   methods: {
     onSubmit () {
       this.$refs.wangyi.search(this.keyword)
       this.$refs.qq.search(this.keyword)
+      this.$refs.baidu.search(this.keyword)
+      this.$refs.kuwo.search(this.keyword)
+      this.$refs.xiami.search(this.keyword)
     },
     tabClick (tab, event) {
       console.log(tab, event)
