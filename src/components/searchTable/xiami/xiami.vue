@@ -42,7 +42,6 @@ export default {
       .then((response) => {
         let html = $(response.data)
         let count = $(html).find('div[class="search_result"] p[class="seek_counts ok"] b:first').text()
-        console.log(count)
         self.result.total = parseInt(count)
         let tds = $(html).find('table[class="track_list"] tbody tr')
         $.each(tds, (i, n) => {
@@ -65,7 +64,9 @@ export default {
     downClick (row) {
       const url = `${process.env.XIAMI_SEARCH}song/playlist/id/${row.id}/object_name/default/object_id/0/cat/json`
       this.axios.get(url, {
-        Referer: 'http://m.xiami.com/'
+        headers: {
+          Referer: 'http://m.xiami.com/'
+        }
       })
       .then((response) => {
         console.log(response)

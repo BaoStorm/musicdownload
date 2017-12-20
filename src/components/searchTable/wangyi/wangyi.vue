@@ -39,7 +39,7 @@ export default {
         'Accept': '*/*',
         'Accept-Language': 'zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4',
         'Content-Type': 'application/x-www-form-urlencoded'
-        // 'Referer': 'http://music.163.com',
+        // referer: 'http://music.163.com'
         // 'Host': 'music.163.com',
         // 'User-Agent': this.$util.randomUserAgent()
       }
