@@ -23,9 +23,9 @@ npm run build --report
 
 #商店下载
 
->https://chrome.google.com/webstore/detail/%E9%9F%B3%E4%B9%90%E4%B8%8B%E8%BD%BD%E5%99%A8/llpindhjejiabipjjfdldekiappekmel?hl=zh-CN
+> https://chrome.google.com/webstore/detail/%E9%9F%B3%E4%B9%90%E4%B8%8B%E8%BD%BD%E5%99%A8/llpindhjejiabipjjfdldekiappekmel?hl=zh-CN
 
 #开发者模式
 
-npm run build
-扩展程序->开发者模式->加载已解压的扩展程序->选择根目录下app文件夹
+> npm run build
+> 扩展程序->开发者模式->加载已解压的扩展程序->选择根目录下app文件夹
