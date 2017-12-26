@@ -1,9 +1,6 @@
 <template>
-  <div>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" @playClick="playClick" ref="pt">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
   </paging-table>
-  <audio @canplay="audioInit" ref="player" style="display:none" :src="mp3Url"  controls="controls"></audio>
-  </div>
 </template>
 <script>
 import pagingTable from '@/components/table/table.vue'
@@ -18,8 +15,7 @@ export default {
         pageSize: 20,
         pageIndex: 1
       },
-      keyword: '',
-      mp3Url: ''
+      keyword: ''
     }
   },
   components: {
@@ -113,40 +109,6 @@ export default {
       .catch(function (error) {
         console.log(error)
       })
-    },
-    playClick (row) {
-      let self = this
-      const br = 999000
-      const data = {
-        ids: [row.id.toString()],
-        br: br,
-        csrf_token: ''
-      }
-      const cryptoreq = Encrypt(data)
-      this.axios({
-        method: 'post',
-        url: 'weapi/song/enhance/player/url?csrf_token=',
-        params: cryptoreq,
-        baseURL: process.env.WANGYYI_API,
-        headers: this.getHeaders()
-      })
-      .then(function (response) {
-        if (response.data.code === 200) {
-          if (response.data.data.length > 0) {
-            // console.log(row.song + '.' + response.data.data[0].type)
-            // console.log(response.data.data[0].url)
-            self.mp3Url = response.data.data[0].url
-            self.$refs.player.currentTime = 0
-            self.$refs.player.volume = 1
-          }
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-    },
-    audioInit () {
-      this.$refs.player.play()
     }
   }
 }
