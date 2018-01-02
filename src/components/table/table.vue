@@ -1,7 +1,10 @@
 <template>
   <div>
     <el-table :data="rows" border style="width: 100%" size="small">
-      <el-table-column prop="song" label="歌名" width="300">
+      <el-table-column label="歌名" width="300">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">{{scope.row.song}}</el-button>
+        </template>
       </el-table-column>
       <el-table-column prop="singer" label="歌手" width="200">
       </el-table-column>
@@ -11,7 +14,7 @@
       </el-table-column>
       <el-table-column  label="操作" >
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">跳转</el-button>
+          <el-button @click="playClick(scope.row)" type="text" size="small">播放</el-button>
           <el-button @click="downClick(scope.row)" type="text" size="small">下载</el-button>
         </template>
       </el-table-column>
@@ -47,6 +50,9 @@ export default {
     },
     setCurrentPage (val) {
       this.currentPage = val
+    },
+    playClick (row) {
+      this.$emit('playClick', row)
     }
   },
   props: {

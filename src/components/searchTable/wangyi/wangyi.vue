@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" @playClick="playClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -75,6 +75,7 @@ export default {
             rows.push(row)
           })
         }
+        console.log(rows)
         self.result.rows = rows
       })
       .catch(function (error) {
@@ -83,20 +84,7 @@ export default {
     },
     downClick (row) {
       let self = this
-      const br = 999000
-      const data = {
-        ids: [row.id.toString()],
-        br: br,
-        csrf_token: ''
-      }
-      const cryptoreq = Encrypt(data)
-      this.axios({
-        method: 'post',
-        url: 'weapi/song/enhance/player/url?csrf_token=',
-        params: cryptoreq,
-        baseURL: process.env.WANGYYI_API,
-        headers: this.getHeaders()
-      })
+      this.getMusicUrl(row)
       .then(function (response) {
         if (response.data.code === 200) {
           if (response.data.data.length > 0) {
@@ -109,7 +97,33 @@ export default {
       .catch(function (error) {
         console.log(error)
       })
+    },
+    playClick (row) {
+      this.getMusicUrl(row)
+      .then((res) => {
+        if (res.data.code === 200) {
+          row.url = res.data.data[0].url
+          this.$store.commit('addMusic', row)
+        }
+      })
+    },
+    getMusicUrl (row) {
+      const br = 999000
+      const data = {
+        ids: [row.id.toString()],
+        br: br,
+        csrf_token: ''
+      }
+      const cryptoreq = Encrypt(data)
+      return this.axios({
+        method: 'post',
+        url: 'weapi/song/enhance/player/url?csrf_token=',
+        params: cryptoreq,
+        baseURL: process.env.WANGYYI_API,
+        headers: this.getHeaders()
+      })
     }
+
   }
 }
 </script>

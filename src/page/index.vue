@@ -37,6 +37,9 @@
         </el-tab-pane>
       </el-tabs>
     </div>
+    <div class="play">
+      <Footers></Footers>
+    </div>
   </div>
 </template>
 <script>
@@ -47,10 +50,12 @@ import baiduTable from '@/components/searchTable/baidu/baidu.vue'
 import kuwoTable from '@/components/searchTable/kuwo/kuwo.vue'
 import xiamiTable from '@/components/searchTable/xiami/xiami.vue'
 
+import Footers from '@/components/footers.vue'
+
 export default {
   data () {
     return {
-      keyword: '',
+      keyword: '周杰伦',
       activeName: 'wangyi'
     }
   },
@@ -60,7 +65,8 @@ export default {
     qqTable,
     baiduTable,
     kuwoTable,
-    xiamiTable
+    xiamiTable,
+    Footers
   },
   methods: {
     onSubmit () {
@@ -88,7 +94,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 
   .container{
     width: 1000px;
