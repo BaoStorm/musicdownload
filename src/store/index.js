@@ -19,8 +19,7 @@ const state = {
   playlist: [],
   playInfo: {
     url: ''
-  },
-  status: 0
+  }
 }
 
 // 设置暴露接口
