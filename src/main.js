@@ -9,6 +9,7 @@ import router from './router'
 import axios from './api'
 import util from './util/util'
 import store from './store/index'
+import './util/filters'
 
 Vue.use(ElementUI)
 

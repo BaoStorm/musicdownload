@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" @playClick="playClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -59,8 +59,7 @@ export default {
     },
     downClick (row) {
       let self = this
-      const url = `${process.env.QQ_BASE}fcgi-bin/fcg_musicexpress.fcg?json=3&guid=0&format=jsonp&inCharset=GB2312&outCharset=GB2312&notice=0&platform=yqq&needNewCode=0`
-      this.axios.get(url)
+      this.getMusicUrl(row)
       .then((response) => {
         let data = response.data.slice('jsonCallback('.length, -');'.length)
         data = JSON.parse(data)
@@ -72,6 +71,19 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    },
+    playClick (row) {
+      this.getMusicUrl(row)
+      .then((res) => {
+        let data = res.data.slice('jsonCallback('.length, -');'.length)
+        data = JSON.parse(data)
+        row.url = `http://dl.stream.qqmusic.qq.com/C200${row.id}.m4a?vkey=${data.key}&fromtag=0&guid=0`
+        this.$store.commit('addMusic', row)
+      })
+    },
+    getMusicUrl (row) {
+      const url = `${process.env.QQ_BASE}fcgi-bin/fcg_musicexpress.fcg?json=3&guid=0&format=jsonp&inCharset=GB2312&outCharset=GB2312&notice=0&platform=yqq&needNewCode=0`
+      return this.axios.get(url)
     }
   }
 }

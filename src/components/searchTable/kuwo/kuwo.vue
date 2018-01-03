@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" @playClick="playClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -59,14 +59,24 @@ export default {
     },
     downClick (row) {
       let self = this
-      const url = `${process.env.KUWO_SONG}anti.s?type=convert_url&rid=${row.id}&format=aac|mp3&response=url`
-      this.axios.get(url)
+      this.getMusicUrl(row)
       .then((response) => {
         self.$util.downloadFile('', response.data)
       })
       .catch((error) => {
         console.log(error)
       })
+    },
+    playClick (row) {
+      this.getMusicUrl(row)
+      .then((res) => {
+        row.url = res.data
+        this.$store.commit('addMusic', row)
+      })
+    },
+    getMusicUrl (row) {
+      const url = `${process.env.KUWO_SONG}anti.s?type=convert_url&rid=${row.id}&format=aac|mp3&response=url`
+      return this.axios.get(url)
     }
   }
 }

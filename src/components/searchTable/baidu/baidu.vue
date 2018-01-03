@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" @playClick="playClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -65,8 +65,7 @@ export default {
     },
     downClick (row) {
       let self = this
-      const url = `${process.env.BAIDU_SONG}data/music/links?songIds=${row.id}`
-      this.axios.get(url)
+      this.getMusicUrl(row)
       .then((response) => {
         if (response.data.data.songList.length > 0) {
           // console.log(response.data.data.songList[0].songLink)
@@ -76,6 +75,19 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    },
+    playClick (row) {
+      this.getMusicUrl(row)
+      .then((res) => {
+        if (res.data.data.songList.length > 0) {
+          row.url = res.data.data.songList[0].songLink
+          this.$store.commit('addMusic', row)
+        }
+      })
+    },
+    getMusicUrl (row) {
+      const url = `${process.env.BAIDU_SONG}data/music/links?songIds=${row.id}`
+      return this.axios.get(url)
     }
   }
 }
