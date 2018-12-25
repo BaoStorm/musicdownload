@@ -38,6 +38,7 @@ export default {
       let self = this
       let rows = []
       const url = `${process.env.XIAMI_SEARCH}search/song/page/${this.result.pageIndex}?key=${this.keyword}`
+
       this.axios.get(url)
       .then((response) => {
         let html = $(response.data)

@@ -27,7 +27,7 @@ module.exports = {
         }
       },
       '/qqbase':{
-        target:"http://base.music.qq.com/",
+        target:"http://u.y.qq.com/",
         changeOrigin:true,
         pathRewrite:{
           '^/qqbase':''
@@ -62,7 +62,7 @@ module.exports = {
         }
       },
       '/xiamisearch':{
-        target:"http://www.xiami.com/",
+        target:"https://www.xiami.com/",
         changeOrigin:true,
         pathRewrite:{
           '^/xiamisearch':''
