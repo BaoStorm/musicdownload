@@ -75,7 +75,6 @@ export default {
             rows.push(row)
           })
         }
-        console.log(rows)
         self.result.rows = rows
       })
       .catch(function (error) {
