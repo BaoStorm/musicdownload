@@ -37,7 +37,6 @@ export default {
       const url = `${process.env.QQ_SEARCH}fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=txt.yqq.song&aggr=1&cr=1&loginUin=0&format=json&outCharset=utf-8&w=${this.keyword}&p=${this.result.pageIndex}&n=${this.result.pageSize}`
       this.axios.get(url)
       .then((response) => {
-        console.log(response.data)
         self.result.total = response.data.data.song.totalnum
         let rows = []
         response.data.data.song.list.forEach((song) => {

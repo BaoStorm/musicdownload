@@ -31,10 +31,10 @@
           <kuwo-table ref="kuwo">
           </kuwo-table>
         </el-tab-pane>
-        <el-tab-pane label="虾米音乐" name="xiami">
+        <!-- <el-tab-pane label="虾米音乐" name="xiami">
           <xiami-table ref="xiami">
           </xiami-table>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
     <div class="play">
@@ -55,7 +55,7 @@ import Footers from '@/components/footers.vue'
 export default {
   data () {
     return {
-      keyword: '周杰伦',
+      keyword: '',
       activeName: 'wangyi'
     }
   },

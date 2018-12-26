@@ -1,5 +1,5 @@
 <template>
-  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" ref="pt">
+  <paging-table :total="result.total" :pageSize="result.pageSize" :rows="result.rows" @currentChange="currentChange" @downClick="downClick" @playClick="playClick" ref="pt">
   </paging-table>
 </template>
 <script>
@@ -63,18 +63,61 @@ export default {
       })
     },
     downClick (row) {
-      const url = `${process.env.XIAMI_SEARCH}song/playlist/id/${row.id}/object_name/default/object_id/0/cat/json`
-      this.axios.get(url, {
-        headers: {
-          Referer: 'http://m.xiami.com/'
+      this.getMusicUrl(row)
+      .then((res) => {
+        if (res.data.status) {
+          let data = res.data.data.trackList[0]
+          let musicUrl = this.parseLocation(data.location)
+          this.$util.downloadFile(row.song + '.m4a', musicUrl)
         }
       })
-      .then((response) => {
-        console.log(response)
+    },
+    playClick (row) {
+      this.getMusicUrl(row)
+      .then((res) => {
+        console.log(res)
+        if (res.data.status) {
+          let data = res.data.data.trackList[0]
+          row.url = this.parseLocation(data.location)
+          this.$store.commit('addMusic', row)
+        }
       })
-      .catch((error) => {
-        console.log(error)
+    },
+    getMusicUrl (row) {
+      const url = `${process.env.XIAMI_SEARCH}song/playlist/id/${row.id}/object_name/default/object_id/0/cat/json`
+      return this.axios.get(url, {
+        headers: {
+          referer: `${process.env.XIAMI_SEARCH}/play?ids=/song/playlist/id/${row.id}/object_name/default/object_id/0`
+        }
       })
+    },
+    parseLocation (location) {
+      const head = parseInt(location.substr(0, 1), 10)
+      const _str = location.substr(1)
+      const rows = head
+      const cols = parseInt(_str.length / rows) + 1
+      let output = ''
+      let fullRow
+      for (let i = 0; i < head; i++) {
+        if ((_str.length - i) / head === parseInt(_str.length / head)) {
+          fullRow = i
+        }
+      }
+      for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < head; r++) {
+          if (c === cols - 1 && r >= fullRow) {
+            continue
+          }
+          let char
+          if (r < fullRow) {
+            char = _str[r * cols + c]
+          } else {
+            char = _str[cols * fullRow + (r - fullRow) * (cols - 1) + c]
+          }
+          output += char
+        }
+      }
+      return decodeURIComponent(output).replace(/\^/g, '0')
     }
   }
 }

@@ -108,7 +108,9 @@ export default {
       this.autoMusic()
     },
     errorLoad () {
-      this.$message.error('歌曲加载错误')
+      if (this.playUrl !== '') {
+        this.$message.error('歌曲加载错误')
+      }
     },
     next () {
       this.$store.commit('switchMusicByIndex', this.switchMusic('next'))

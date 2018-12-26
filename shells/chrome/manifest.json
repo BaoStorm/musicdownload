@@ -19,7 +19,7 @@
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "manifest_version": 2,
     "name": "音乐下载器",
-    "permissions": [ "notifications", "unlimitedStorage", "downloads", "storage", "contextMenus", "tabs", "*://*.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*","*://*.baidu.com/*","*://*.kuwo.cn/*", "webRequest", "webRequestBlocking"],
-    "version": "1.0.0",
+    "permissions": [ "notifications", "unlimitedStorage", "downloads","storage", "contextMenus", "tabs", "*://*.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*","*://*.baidu.com/*","*://*.qianqian.com/*","*://*.taihe.com/*","*://*.kuwo.cn/*", "webRequest", "webRequestBlocking"],
+    "version": "1.0.1",
     "web_accessible_resources": [ "images/*" ]
 }
